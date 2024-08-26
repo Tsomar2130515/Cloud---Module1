@@ -1,19 +1,16 @@
-'use client'
-import { initializeApp } from "firebase/app"
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-import Link from "next/link"
+"use client"
 import Header from './common/Header';
 import Footer from './common/Footer';
+import ListConsultation from './common/ListConsultation';
 
-export default function Home() 
-{
+export default function Home() {
     return (
-        <main >
-
+        <div className="container">
             <Header />
+            <main className="main-content">
+                <ListConsultation />
+            </main>
             <Footer />
-
-        </main>
+        </div>
     );
 }
-

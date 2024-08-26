@@ -1,0 +1,52 @@
+{
+  "Task": [
+    {
+      "id": "c12e",
+      "nom": "aller au travail",
+      "statut": true,
+      "nomUser": "arianelouiza@gmail.com"
+    },
+    {
+      "id": "641f",
+      "nom": "aller a lecole",
+      "statut": false,
+      "nomUser": "arianelouiza@gmail.com"
+    },
+    {
+      "id": "1662",
+      "nom": "faire du vélo",
+      "statut": false,
+      "nomUser": "arianelouiza@gmail.com"
+    },
+    {
+      "id": "41d0",
+      "nom": "faire l'épicerie",
+      "statut": true,
+      "nomUser": "arianelouiza@gmail.com"
+    },
+    {
+      "id": "b401",
+      "nom": "faire la lessive",
+      "statut": false,
+      "nomUser": "arianelouiza@gmail.com"
+    },
+    {
+      "id": "5b29",
+      "nom": "faire le ménage",
+      "statut": false,
+      "nomUser": "arianelouiza@gmail.com"
+    },
+    {
+      "id": "bdfd",
+      "nom": "faire le footing",
+      "statut": true,
+      "nomUser": "arianelouiza@gmail.com"
+    },
+    {
+      "id": "2879",
+      "nom": "bdfbn dfvnb",
+      "statut": false,
+      "nomUser": "arianelouiza@gmail.com"
+    }
+  ]
+}

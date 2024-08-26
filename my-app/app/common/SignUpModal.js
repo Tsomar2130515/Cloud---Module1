@@ -23,7 +23,7 @@ function SignupModal({ isOpen, onClose }) {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    /*try {
+    try {
       await createUserWithEmailAndPassword(auth, email, password);
       onClose(); 
     } catch (error) {
@@ -34,9 +34,9 @@ function SignupModal({ isOpen, onClose }) {
       }
     } finally {
       setLoading(false);
-    }*/
+    }
 
-    createUserWithEmailAndPassword(auth, email, password)
+    /*createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         onClose();
       })
@@ -45,7 +45,7 @@ function SignupModal({ isOpen, onClose }) {
       })
       .finally(() => {
         setLoading(false);
-      });
+      });*/
   }
 
   return (
