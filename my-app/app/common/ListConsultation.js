@@ -47,6 +47,7 @@ export default function TaskPage() {
         return <div>Chargement...</div>;
     }
 
+    const nomU = user.email.slice(0, -10);
 
     // Affichage de la liste des tâches si l'utilisateur est connecté
     return user ? (
@@ -64,7 +65,7 @@ export default function TaskPage() {
                     Ajouter
                 </button>
             </div>
-            <h2 className="entete">Vos tâches</h2>
+            <h2 className="entete">Tâches à faire {nomU}</h2>
             <TasksList user={user} /> {/* Passer l'utilisateur connecté à la liste des tâches */}
         </div>
     ) : (
