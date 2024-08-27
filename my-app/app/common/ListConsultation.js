@@ -27,7 +27,7 @@ export default function TaskPage() {
 
     const addNewTask = async () => {
         if (newTaskName.trim()) {
-            const newTask = { nom: newTaskName, statut: false, nomUser: user.email};  // You can dynamically set the user here
+            const newTask = { nom: newTaskName, statut: false, nomUser: user.email };  // You can dynamically set the user here
             const response = await fetch("http://localhost:3000/Task", {
                 method: "POST",
                 headers: {
@@ -42,16 +42,14 @@ export default function TaskPage() {
         }
     };
 
-    if (!user) {
-        return <div>Vous devez être connecté pour accéder à la liste de vos taches.</div>;  // Message si l'utilisateur n'est pas connecté
-    }
 
-    
+
+
 
     // Affichage de la liste des tâches si l'utilisateur est connecté
-    return (
+    return user ? (
         <div className="affichageTache">
-            {/* Form to add a new task */}
+            {/* Formulaire pour ajouter une nouvelle tâche */}
             <div className="mb-3 btnAjout">
                 <input
                     type="text"
@@ -60,10 +58,16 @@ export default function TaskPage() {
                     onChange={(e) => setNewTaskName(e.target.value)}
                     placeholder="Nouvelle tâche"
                 />
-                <button onClick={addNewTask} className="btn btn-primary mt-2">Ajouter</button>
+                <button onClick={addNewTask} className="btn btn-primary mt-2">
+                    Ajouter
+                </button>
             </div>
             <h2 className="entete">Vos tâches</h2>
-            <TasksList user={user} />  {/* Passer l'utilisateur connecté à la liste des tâches */}
+            <TasksList user={user} /> {/* Passer l'utilisateur connecté à la liste des tâches */}
         </div>
+    ) : (
+        <div>Vous devez être connecté pour accéder à la liste de vos tâches.</div>
     );
+    
+    
 }

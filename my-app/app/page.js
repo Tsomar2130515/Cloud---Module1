@@ -1,7 +1,8 @@
 "use client"
 import Header from './common/Header';
 import Footer from './common/Footer';
-import ListConsultation from './common/ListConsultation';
+/* import ListConsultation from './common/ListConsultation'; */
+import ListConsultation from '@/app/common/ListConsultation';
 
 export default function Home() {
     return (
