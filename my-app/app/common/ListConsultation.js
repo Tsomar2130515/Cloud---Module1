@@ -43,7 +43,9 @@ export default function TaskPage() {
     };
 
 
-
+    if (loading) {
+        return <div>Chargement...</div>;
+    }
 
 
     // Affichage de la liste des tâches si l'utilisateur est connecté
