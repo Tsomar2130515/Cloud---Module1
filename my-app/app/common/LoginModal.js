@@ -4,15 +4,10 @@ import init from './init'
 import { signInWithEmailAndPassword } from "firebase/auth"
 function LoginModal({ isOpen, onClose }) {
   const { auth } = init();
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState(''); 
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
-
-  const handlePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
 
   async function submitForm(e) {
     e.preventDefault();
@@ -22,21 +17,12 @@ function LoginModal({ isOpen, onClose }) {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    /*try {
-      await signInWithEmailAndPassword(auth, email, password)
-      onClose(); 
-    } catch (error) {
-        setError('Oups, vous avez déjà un compte utilisateur.');
-    } finally {
-        setLoading(false);
-    }*/
-
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       onClose();
     })
     .catch((error) => {
-      setError('Oups, vous avez déjà un compte utilisateur.');
+      setError('Oups,vos informations ne sont pas correct,veuillez les vérifier');
     })
     .finally(() => {
       setLoading(false);
@@ -59,18 +45,11 @@ function LoginModal({ isOpen, onClose }) {
             <label htmlFor="password">Mot de passe</label>
             <div className="password-input-container">
               <input
-                type={passwordVisible ? "text" : "password"}
+                type="password"
                 id="password"
                 name="password"
                 required
               />
-              <button
-                type="button"
-                className="password-visibility"
-                onClick={handlePasswordVisibility}
-              >
-                {passwordVisible ? "👁️" : "🔒"}
-              </button>
             </div>
           </div>
           <button type="submit" disabled={loading}>

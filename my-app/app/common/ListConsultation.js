@@ -27,7 +27,7 @@ export default function TaskPage() {
 
     const addNewTask = async () => {
         if (newTaskName.trim()) {
-            const newTask = { nom: newTaskName, statut: false, nomUser: user.email };  // You can dynamically set the user here
+            const newTask = { nom: newTaskName, statut: false, nomUser: user?.email || "unknown" };  // Utilisation de l'email de l'utilisateur ou d'une valeur par défaut
             const response = await fetch("http://localhost:3000/Task", {
                 method: "POST",
                 headers: {
@@ -37,17 +37,17 @@ export default function TaskPage() {
             });
 
             const createdTask = await response.json();
-            setTasks([...tasks, createdTask]);  // Add the newly created task to the list
-            setNewTaskName("");  // Clear the input field
+            setTasks([...tasks, createdTask]);  // Ajoute la nouvelle tâche à la liste
+            setNewTaskName("");  // Efface le champ de saisie
         }
     };
-
 
     if (loading) {
         return <div>Chargement...</div>;
     }
 
-    const nomU = user.email.slice(0, -10);
+    // Extrait la partie de l'email avant le caractère '@'
+    const emailPrefix = user?.email.split('@')[0] || '';
 
     // Affichage de la liste des tâches si l'utilisateur est connecté
     return user ? (
@@ -65,12 +65,10 @@ export default function TaskPage() {
                     Ajouter
                 </button>
             </div>
-            <h2 className="entete">Tâches à faire {nomU}</h2>
+            <h2 className="entete">Tâches à faire pour {emailPrefix}</h2>
             <TasksList user={user} /> {/* Passer l'utilisateur connecté à la liste des tâches */}
         </div>
     ) : (
         <div>Vous devez être connecté pour accéder à la liste de vos tâches.</div>
     );
-    
-    
 }

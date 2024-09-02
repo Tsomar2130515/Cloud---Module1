@@ -59,7 +59,7 @@ export default function TasksList() {
                     />
                 ))
             ) : (
-                <p>Aucune tâche disponible</p>
+                <p className="noTask">Aucune tâche disponible🎉</p>
             )}
         </div>
     );

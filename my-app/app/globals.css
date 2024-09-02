@@ -11,13 +11,13 @@ html, body {
 }
 
 main {
-  flex: 1; /* Cette propriété permet à main de prendre tout l'espace restant */
+  flex: 1;
 }
 
 .toDoList_HeaderFooter {
   display: flex;
-  background-color: darkorange;
-  color: black;
+  background-color: black;
+  color: white;
   padding: 1rem;
   text-align: center;
 }
@@ -87,7 +87,7 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: black;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -172,32 +172,37 @@ main {
 
 }
 
-.tache
-{
+.tache {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 10px; 
   justify-content: center;
-  
-
+  flex-shrink: 1;
+  overflow: hidden;
+  align-items: center;
+  width: 100%;
 }
 
-.checkbox
-{
-  width: 100px;
 
+.nomTache {
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: 10px;
+  max-width: 300px;
 }
 
-.deleteButton
-{
-  background-color:red;
+
+.checkbox {
+  flex-shrink: 0; 
+  width: 20px; 
+  height: 20px;
+}
+
+.deleteButton {
+  background-color: red;
   border-radius: 5px;
-}
-
-.nomTache{
-  display: flex;
-  justify-content: center;
-  width: 15% ;
 }
 
 .entete{
@@ -216,6 +221,12 @@ main {
  padding: 50px;
  background-color: blanchedalmond;
 }
+
+.noTask
+{ 
+  text-align: center;
+}
+
 
 
 

@@ -5,47 +5,47 @@ import init from './init';
 
 function SignupModal({ isOpen, onClose }) {
   const { auth } = init();
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
-  const handlePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
 
   async function submitForm(e) {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value.trim();
+
+    if (!email || !password) {
+      setError('Veuillez remplir tous les champs.');
+      setLoading(false);
+      return;
+    }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       onClose(); 
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        setError('Oups, vous avez déjà un compte utilisateur avec cet e-mail.');
-      } else {
-        setError('Oups, quelque chose a mal tourné. Vérifiez vos informations et réessayez.');
+      console.error("Erreur lors de l'inscription : ", error);
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          setError('Oups, vous avez déjà un compte utilisateur avec cet e-mail.');
+          break;
+        case 'auth/invalid-email':
+          setError('L\'email fourni est invalide.');
+          break;
+        case 'auth/weak-password':
+          setError('Le mot de passe doit comporter au moins 6 caractères.');
+          break;
+        default:
+          setError('Oups, quelque chose a mal tourné. Vérifiez vos informations et réessayez.');
       }
     } finally {
       setLoading(false);
     }
-
-    /*createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        onClose();
-      })
-      .catch((error) => {
-        setError('Oups, vous avez déjà un compte utilisateur avec cet e-mail.');
-      })
-      .finally(() => {
-        setLoading(false);
-      });*/
   }
 
   return (
@@ -63,18 +63,11 @@ function SignupModal({ isOpen, onClose }) {
             <label htmlFor="password">Mot de passe</label>
             <div className="password-input-container">
               <input
-                type={passwordVisible ? "text" : "password"}
+                type="password"
                 id="password"
                 name="password"
                 required
               />
-              <button
-                type="button"
-                className="password-visibility"
-                onClick={handlePasswordVisibility}
-              >
-                {passwordVisible ? "👁️" : "🔒"}
-              </button>
             </div>
           </div>
           <button type="submit" disabled={loading}>
