@@ -1,18 +1,6 @@
 {
   "Task": [
     {
-      "id": "c12e",
-      "nom": "aller au travail",
-      "statut": true,
-      "nomUser": "arianelouiza@gmail.com"
-    },
-    {
-      "id": "1662",
-      "nom": "faire du vélo",
-      "statut": false,
-      "nomUser": "arianelouiza@gmail.com"
-    },
-    {
       "id": "41d0",
       "nom": "faire l'épicerie",
       "statut": false,
