@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
+import { getFirestore } from "firebase/firestore"
 
 export default function() {
 
@@ -13,6 +14,7 @@ export default function() {
 };
   const app = initializeApp(firebaseConfig)
   const auth = getAuth()
+  const db = getFirestore(app)
 
-  return {auth}
+  return {auth, db}
 }
