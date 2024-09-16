@@ -33,7 +33,7 @@ export default function TaskPage() {
             const newTask = {
                 nom: newTaskName,
                 statut: false,
-                userName: user?.email || "unknown"  // Utilisation de l'email de l'utilisateur ou d'une valeur par défaut
+                userId: user?.uid // Utilisation de l'email de l'utilisateur 
             };
 
             try {

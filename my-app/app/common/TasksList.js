@@ -15,7 +15,7 @@ export default function TasksList() {
             if (user && user.email) {
                 try {
                     // Créer une requête pour récupérer les tâches en fonction de l'utilisateur
-                    const q = query(collection(db, "Task"), where("userName", "==", user.email));
+                    const q = query(collection(db, "Task"), where("userId", "==", user.uid));
                     const querySnapshot = await getDocs(q);
                     
                     // Map des tâches récupérées et mise à jour de l'état
