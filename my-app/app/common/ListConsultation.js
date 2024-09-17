@@ -26,14 +26,18 @@ export default function TaskPage() {
         return () => unsubscribe();
     }, [auth]);
 
-
-    //fonction pour ajouter une nouvelle tâche avec firebase
+    // Fonction pour ajouter une nouvelle tâche avec Firebase
     const addNewTask = async () => {
+        if (!user) {
+            console.error("Utilisateur non authentifié");
+            return;
+        }
+
         if (newTaskName.trim()) {
             const newTask = {
                 nom: newTaskName,
                 statut: false,
-                userId: user?.uid // Utilisation de l'email de l'utilisateur 
+                userId: user.uid // Utilisation de l'UID de l'utilisateur
             };
 
             try {
@@ -46,7 +50,6 @@ export default function TaskPage() {
             }
         }
     };
-
     
     if (loading) {
         return <div>Chargement...</div>;
