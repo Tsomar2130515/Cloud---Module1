@@ -6,7 +6,7 @@ import HeaderButton from "./HeaderButton";
 import SignupModal from "./SignUpModal";
 import LoginModal from "./LoginModal";
 import { signOut } from "firebase/auth";
-
+import MyUserProfile from './MyUserProfile';
 function Header() {
   const { auth } = init();
   const [isInscriptionModalOpen, setIsInscriptionModalOpen] = useState(false);
@@ -60,7 +60,12 @@ function Header() {
 
       <div className="headerButtons_Section">
         {user ? (
-          <HeaderButton nom="Se déconnecter" action={handleLogOut} />
+           <>
+
+           <HeaderButton nom="Se déconnecter" action={handleLogOut} />
+           <MyUserProfile action = {handleConnexionButtonClick} />
+
+           </>
         ) : (
           <>
             <HeaderButton nom="S'inscrire" action={handleInscriptionButtonClick} />

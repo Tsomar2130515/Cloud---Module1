@@ -227,6 +227,23 @@ main {
   text-align: center;
 }
 
+.MyUserProfile
+{ 
+  width: 40px;
+  height: 40px;
+  background-color: black;
+  border-radius: 100%;
+  margin-left: 100px;
+  /*margin-top: 5px;*/
+
+  
+}
+
+.userPicture
+{ 
+  border-radius: 100%;
+}
+
 
 
 
