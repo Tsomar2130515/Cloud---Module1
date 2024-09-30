@@ -10,6 +10,7 @@ export default function TaskPage() {
     const [loading, setLoading] = useState(true);
     const [newTaskName, setNewTaskName] = useState("");
     const [tasks, setTasks] = useState([]);
+    const [newTaskImage, setNewTaskImage] = useState(null);
 
     useEffect(() => {
         // Vérification de l'état de l'utilisateur au chargement
@@ -37,7 +38,8 @@ export default function TaskPage() {
             const newTask = {
                 nom: newTaskName,
                 statut: false,
-                userId: user.uid // Utilisation de l'UID de l'utilisateur
+                userId: user.uid, // Utilisation de l'UID de l'utilisateur
+                nomImage: newTaskImage || "default.png"
             };
 
             try {
@@ -69,6 +71,14 @@ export default function TaskPage() {
                     value={newTaskName}
                     onChange={(e) => setNewTaskName(e.target.value)}
                     placeholder="Nouvelle tâche"
+                    required
+                />
+                <input 
+                    type="file" 
+                    name="file" 
+                    value={newTaskImage} 
+                    onChange={(e) => setNewTaskImage(e.target.value)} 
+                    required
                 />
                 <button onClick={addNewTask} className="btn btn-primary mt-2">
                     Ajouter

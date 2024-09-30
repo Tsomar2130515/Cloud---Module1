@@ -1,10 +1,14 @@
 'use client';
-import { useState } from "react";
+import init from "./init";
+import { useEffect, useState } from "react";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-
+import {getStorage, ref, uploadBytes, listAll, getDownloadURL} from "firebase/storage"
 
 export default function Tache({ task, onTaskUpdate, onTaskDelete, db }) {
     const [isChecked, setIsChecked] = useState(task.statut);
+    const [imageURL, setImageURL] = useState(null);  // État pour l'URL de l'image
+    const storage = getStorage();
+    const refStorage = ref(storage);
 
     // Fonction pour gérer le changement de statut (case cochée/décochée)
     const handleCheckboxChange = async () => {
@@ -43,9 +47,41 @@ export default function Tache({ task, onTaskUpdate, onTaskDelete, db }) {
         }
     }
 
+
+
+    function submit(e){
+        e.preventDefault()
+     
+        const file = e.target.file.files[0]
+        const refFile = ref(refStorage, `files/${file.name}`)
+        uploadBytes(refFile, file).then((snapshot) => {
+          console.log('Uploaded a file!');
+        });
+
+    }
+
+
+    useEffect(() => {
+        if (task.nomImage) {
+            const imageRef = ref(storage, `files/${task.nomImage}`);
+            getDownloadURL(imageRef)
+                .then((url) => {
+                    setImageURL(url);  // Met à jour l'état avec l'URL de l'image
+                })
+                .catch((error) => {
+                    console.error("Erreur lors de la récupération de l'image:", error);
+                });
+        }
+    }, [task.nomImage, storage]);
    
     return (
         <div className="tache" >
+            {imageURL && (
+                <div className="imageTask">
+                    <img src={imageURL} alt={`Image de la tâche ${task.nom}`} />
+                </div>
+            )}
+
             <input
                 className="checkbox"
                 type="checkbox"
@@ -60,9 +96,13 @@ export default function Tache({ task, onTaskUpdate, onTaskDelete, db }) {
                 </svg>
             </button>
 
-            <button className="ImageChoice">
-                Choisir une image
-            </button>
+            <form onSubmit={submit}>
+                <input type="file" name="file" />
+                <input type="submit" value="Envoyer" />
+            </form>
+
+
+
 
 
         </div>
