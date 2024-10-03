@@ -250,8 +250,33 @@ main {
   height: 100px;
 }
 
+.bloc {
+  
+  padding: 5px;
+  
 
+}
 
+.card {
+  margin: 5px;
+
+  border: 1px solid #585151;
+  border-top-left-radius: 10px;  /* Coin supérieur gauche arrondi */
+  border-top-right-radius: 10px; 
+  align-items: center;
+  text-align: center;
+  width: 20%;
+  background-color: rgb(113, 190, 77);
+  
+}
+
+.image {
+  margin: 10px;
+  border: 1px solid #585151;
+  border-top-left-radius: 10px;  /* Coin supérieur gauche arrondi */
+  border-top-right-radius: 10px; /* Coin supérieur droit arrondi */
+  background-color: none;
+}
 
 
 

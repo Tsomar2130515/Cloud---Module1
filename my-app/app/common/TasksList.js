@@ -59,20 +59,22 @@ export default function TasksList() {
     };
 
     return (
-        <div>
-            {tasks.length > 0 ? (
-                tasks.map((task) => (
-                    <Tache
-                        key={task.id}
-                        task={task}
-                        onTaskUpdate={handleTaskUpdate}
-                        onTaskDelete={handleTaskDelete}
-                        db={db}
-                    />
-                ))
-            ) : (
-                <p className="noTask">Aucune tâche disponible🎉</p>
-            )}
+        <div className='container'>
+            <div className="row  ">
+                {tasks.length > 0 ? (
+                    tasks.map((task) => (
+                        <Tache
+                            key={task.id}
+                            task={task}
+                            onTaskUpdate={handleTaskUpdate}
+                            onTaskDelete={handleTaskDelete}
+                            db={db}
+                        />
+                    ))
+                ) : (
+                    <p className="noTask">Aucune tâche disponible🎉</p>
+                )}
+            </div>
         </div>
     );
 }

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import init from './init';  // Importation de l'initialisation Firebase
 import TasksList from './TasksList';  // Importation du composant de la liste de tâches
 import { collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage"
+
 
 export default function TaskPage() {
     const { auth, db } = init();  // Initialisation de l'authentification Firebase
@@ -10,7 +12,8 @@ export default function TaskPage() {
     const [loading, setLoading] = useState(true);
     const [newTaskName, setNewTaskName] = useState("");
     const [tasks, setTasks] = useState([]);
-    const [newTaskImage, setNewTaskImage] = useState(null);
+    const storage = getStorage();
+    const refStorage = ref(storage);
 
     useEffect(() => {
         // Vérification de l'état de l'utilisateur au chargement
@@ -28,7 +31,7 @@ export default function TaskPage() {
     }, [auth]);
 
     // Fonction pour ajouter une nouvelle tâche avec Firebase
-    const addNewTask = async () => {
+    const addNewTask = async (imageName) => {
         if (!user) {
             console.error("Utilisateur non authentifié");
             return;
@@ -38,8 +41,8 @@ export default function TaskPage() {
             const newTask = {
                 nom: newTaskName,
                 statut: false,
-                userId: user.uid, // Utilisation de l'UID de l'utilisateur
-                nomImage: newTaskImage || "default.png"
+                userId: user.uid,  // Utilisation de l'UID de l'utilisateur
+                nomImage: imageName || null,
             };
 
             try {
@@ -52,7 +55,28 @@ export default function TaskPage() {
             }
         }
     };
-    
+
+    //upload image
+    async function uploadImage(e) {
+        //uploading de l'image
+        e.preventDefault();
+        const file = e.target.file.files[0];
+
+        if (!file) {
+            console.error("Aucun fichier sélectionné");
+            return;
+        }
+
+        const refFile = ref(refStorage, `images/${file.name}`);
+        uploadBytes(refFile, file).then((snapshot) => {
+            console.log("Fichier déploïé avec succès !", snapshot);
+            addNewTask(file.name);
+        })
+        .catch((error) => {
+            console.error("Erreur lors duchargement du fichier:", error);
+        });
+    };
+
     if (loading) {
         return <div>Chargement...</div>;
     }
@@ -64,26 +88,26 @@ export default function TaskPage() {
     return user ? (
         <div className="affichageTache">
             {/* Formulaire pour ajouter une nouvelle tâche */}
-            <div className="mb-3 btnAjout">
+            <form onSubmit={uploadImage} className="mb-3 btnAjout">
                 <input
                     type="text"
                     className="form-control"
                     value={newTaskName}
                     onChange={(e) => setNewTaskName(e.target.value)}
                     placeholder="Nouvelle tâche"
+                    required  // Ajout de la propriété 'required' pour la validation
+                />
+                <input
+                    type="file"
+                    name="file"
                     required
                 />
-                <input 
-                    type="file" 
-                    name="file" 
-                    value={newTaskImage} 
-                    onChange={(e) => setNewTaskImage(e.target.value)} 
-                    required
+                <input
+                    type="submit"
+                    className="btn btn-primary mt-2"
+                    value="Ajouter"
                 />
-                <button onClick={addNewTask} className="btn btn-primary mt-2">
-                    Ajouter
-                </button>
-            </div>
+            </form>
             <h2 className="entete">Tâches à faire pour {emailPrefix}</h2>
             <TasksList user={user} /> {/* Passer l'utilisateur connecté à la liste des tâches */}
         </div>
@@ -93,19 +117,19 @@ export default function TaskPage() {
 }
 
 // Fonction pour ajouter une nouvelle tâche
-   /*  const addNewTask = async () => {
-        if (newTaskName.trim()) {
-            const newTask = { nom: newTaskName, statut: false, nomUser: user?.email || "unknown" };  // Utilisation de l'email de l'utilisateur ou d'une valeur par défaut
-            const response = await fetch("http://localhost:3000/Task", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(newTask)
-            });
+/*  const addNewTask = async () => {
+     if (newTaskName.trim()) {
+         const newTask = { nom: newTaskName, statut: false, nomUser: user?.email || "unknown" };  // Utilisation de l'email de l'utilisateur ou d'une valeur par défaut
+         const response = await fetch("http://localhost:3000/Task", {
+             method: "POST",
+             headers: {
+                 "Content-Type": "application/json"
+             },
+             body: JSON.stringify(newTask)
+         });
 
-            const createdTask = await response.json();
-            setTasks([...tasks, createdTask]);  // Ajoute la nouvelle tâche à la liste
-            setNewTaskName("");  // Efface le champ de saisie
-        }
-    }; */
+         const createdTask = await response.json();
+         setTasks([...tasks, createdTask]);  // Ajoute la nouvelle tâche à la liste
+         setNewTaskName("");  // Efface le champ de saisie
+     }
+ }; */
