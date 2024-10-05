@@ -8,7 +8,20 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+
 }
+
+.containerTasks {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 16px; 
+}
+
+.containerTasks .Tache {
+  flex: 1 0 calc(33.33% - 16px); 
+  box-sizing: border-box; 
+}
+
 
 main {
   flex: 1;
@@ -227,17 +240,20 @@ main {
   text-align: center;
 }
 
-.MyUserProfile
-{ 
-  width: 40px;
-  height: 40px;
-  background-color: black;
-  border-radius: 100%;
-  margin-left: 100px;
-  /*margin-top: 5px;*/
-
-  
+.MyUserProfile {
+  cursor: pointer;
 }
+
+.userPicture {
+  border-radius: 50%; 
+  object-fit: cover; 
+}
+
+.userPicture {
+  border-radius: 50%; 
+  object-fit: cover; 
+}
+
 
 .userPicture
 { 
@@ -259,16 +275,51 @@ main {
 
 .card {
   margin: 5px;
-
   border: 1px solid #585151;
-  border-top-left-radius: 10px;  /* Coin supérieur gauche arrondi */
+  border-top-left-radius: 10px;  
   border-top-right-radius: 10px; 
   align-items: center;
   text-align: center;
-  width: 20%;
-  background-color: rgb(113, 190, 77);
-  
+  background-color: burlywood;
+  height: 500px; 
+  width: 300px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  overflow: hidden; 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+.card img {
+  width: 100%; 
+  height: auto; 
+  flex: 1 0 auto; 
+  object-fit: cover; 
+  border-top-left-radius: 10px; 
+  border-top-right-radius: 10px; 
+}
+
+.card p {
+  margin: 10px 0 0; 
+  padding: 0 10px; 
+  font-size: 14px; 
+  color: #333; 
+}
+
+
+.titreProfil
+{
+  color:white;
+
+}
+
+.boutonProfil
+{
+  display: flex;
+  margin-left: 40%;
+}
+
+
 
 .image {
   margin: 10px;

@@ -59,8 +59,7 @@ export default function TasksList() {
     };
 
     return (
-        <div className='container'>
-            <div className="row  ">
+        <div className='containerTasks'>
                 {tasks.length > 0 ? (
                     tasks.map((task) => (
                         <Tache
@@ -75,33 +74,5 @@ export default function TasksList() {
                     <p className="noTask">Aucune tâche disponible🎉</p>
                 )}
             </div>
-        </div>
     );
 }
-
-
-  /*  useEffect(() => {
-        const fetchTasks = async () => {
-            if (user && user.email) {
-                try {
-                    const response = await fetch(`http://localhost:3000/Task?nomUser=${encodeURIComponent(user.email)}`);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    const data = await response.json();
-                    setTasks(data);
-                } catch (error) {
-                    console.error('Error fetching tasks:', error);
-                }
-            }
-        };
-
-        // Initial fetch
-        fetchTasks();
-
-        // Set interval to fetch tasks every second
-        const intervalId = setInterval(fetchTasks, 1000);
-
-        // Clean up the interval on component unmount
-        return () => clearInterval(intervalId);
-    }, [user]); */

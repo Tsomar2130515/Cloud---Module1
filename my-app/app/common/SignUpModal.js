@@ -1,15 +1,13 @@
-"use client";
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import init from './init';
+import init from './init'; // Votre fichier d'initialisation Firebase
 
 function SignupModal({ isOpen, onClose }) {
-  const { auth } = init();
+  const { auth } = init(); // Assurez-vous que l'authentification est aussi initialisée
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
-
 
   async function submitForm(e) {
     e.preventDefault();
@@ -19,6 +17,7 @@ function SignupModal({ isOpen, onClose }) {
     const email = e.target.email.value.trim();
     const password = e.target.password.value.trim();
 
+    // Vérifie si tous les champs sont remplis
     if (!email || !password) {
       setError('Veuillez remplir tous les champs.');
       setLoading(false);
@@ -26,8 +25,13 @@ function SignupModal({ isOpen, onClose }) {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      onClose(); 
+      // Crée l'utilisateur seulement si tous les champs sont remplis
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Ici, vous pouvez ajouter la logique pour gérer la photo de profil ultérieurement
+
+      onClose(); // Fermer le modal après la création du compte
     } catch (error) {
       console.error("Erreur lors de l'inscription : ", error);
       switch (error.code) {
@@ -62,12 +66,7 @@ function SignupModal({ isOpen, onClose }) {
           <div className="password-container">
             <label htmlFor="password">Mot de passe</label>
             <div className="password-input-container">
-              <input
-                type="password"
-                id="password"
-                name="password"
-                required
-              />
+              <input type="password" id="password" name="password" required />
             </div>
           </div>
           <button type="submit" disabled={loading}>
