@@ -1,6 +1,7 @@
 "use client"
 import Header from './common/Header';
 import Footer from './common/Footer';
+import { getToken, onMessage } from 'firebase/messaging'
 /* import ListConsultation from './common/ListConsultation'; */
 import ListConsultation from '@/app/common/ListConsultation';
 
@@ -10,6 +11,7 @@ export default function Home() {
             <Header />
             <main className="main-content">
                 <ListConsultation />
+
             </main>
             <Footer />
         </div>
